@@ -1,0 +1,33 @@
+/* XPM */
+static char *_22a796fbba94beeb9d6e83d0a43b2a4cimQN5CMMHYPceel[] = {
+/* columns rows colors chars-per-pixel */
+"17 17 10 1 ",
+"  c None",
+". c #F1C284",
+"X c #C97E4F",
+"o c #F1F0EE",
+"O c #28237B",
+"+ c #3259E2",
+"@ c #973F3F",
+"# c #586C79",
+"$ c #96A5AB",
+"% c white",
+/* pixels */
+"                 ",
+"                 ",
+"                 ",
+"                 ",
+"  .............  ",
+"  XXXXX.oooooo.  ",
+"  XXXXX.ooOooO.  ",
+"  XXXXX.oo+oo+.  ",
+"  XXXXX....XX..  ",
+"  XXXXX....@XX.  ",
+"  XXXXX.XX@....  ",
+"  XXXXX........  ",
+"  @@@@@XXXXXXXX  ",
+"   ##$$   ##$$   ",
+"   ##$$   ##$$   ",
+"                 ",
+"                 "
+};
