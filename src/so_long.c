@@ -98,8 +98,8 @@ int main(void)
     ft_put_bg(win, 1920, 1080, 65);
     
     win.sasuke = ft_get_image_transparance(win.mlx, win.grass, "images/char/sasuke_front.xpm");
-    win.sasuke.x = 500;
-    win.sasuke.y = 500;
+    win.sasuke.x = 0;
+    win.sasuke.y = 0;
     mlx_put_image_to_window(win.mlx, win.mlx_win, win.sasuke.img, win.sasuke.x, win.sasuke.y);
     mlx_key_hook(win.mlx_win, ft_hook, &win);
 
