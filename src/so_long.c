@@ -14,13 +14,21 @@ int main(void)
 {
     void    *mlx;
     void    *mlx_win;
-    t_data  img;
+    t_data  sasuke;
+    t_data  naruto;
+    t_data  grass;
 
-    img.relative_path = "images/test.xpm";
+    sasuke.relative_path = "images/char/sasuke_front.xpm";
+    naruto.relative_path = "images/char/naruto_front.xpm";
+    grass.relative_path = "images/char/grass.xpm";
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, 1920, 1080, "So long");
-    img.img = mlx_xpm_file_to_image(mlx, img.relative_path, &img.img_width, &img.img_height);
-    mlx_put_image_to_window(mlx, mlx_win, img.img, 500, 500);
-    mlx_put_image_to_window(mlx, mlx_win, img.img, 800, 800);
+    sasuke.img = mlx_xpm_file_to_image(mlx, sasuke.relative_path, &sasuke.img_width, &sasuke.img_height);
+    naruto.img = mlx_xpm_file_to_image(mlx, naruto.relative_path, &naruto.img_width, &naruto.img_height);
+    grass.img = mlx_xpm_file_to_image(mlx, grass.relative_path, &grass.img_width, &grass.img_height);
+    mlx_put_image_to_window(mlx, mlx_win, sasuke.img, 500, 500);
+    mlx_put_image_to_window(mlx, mlx_win, grass.img, 801, 801);
+    mlx_put_image_to_window(mlx, mlx_win, naruto.img, 800, 800);
+
 	mlx_loop(mlx);
 }
