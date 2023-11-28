@@ -26,10 +26,12 @@ typedef struct	s_win {
 }				t_win;
 
 typedef struct	s_index {
-	int     i;
-    int     x;
-    int     y;
-    int     j;
+	int i;
+    int x;
+    int y;
+    int j;
+    int k;
+    int l;
 }				t_index;
 
 #endif

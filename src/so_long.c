@@ -1,5 +1,7 @@
 
 #include "../include/so_long.h"
+#include "../include/get_next_line.h"
+#include "../include/ft_printf.h"
 
 t_data    ft_get_image_transparance(void *mlx, t_data bg, char *path)
 {
@@ -62,46 +64,48 @@ int	ft_hook(int keycode, t_win *win)
 	return (0);
 }
 
-void    ft_put_bg(t_win win, int x, int y , int img_size)
-{   
-    t_index i;
-
-    i.j = 0;
-    i.x = 0;
-    i.y = 0;
-    i.i = 0;
-    while(i.i <= (x / img_size))
-    {
-        while(i.j <= (y / img_size))
-        {
-            mlx_put_image_to_window(win.mlx, win.mlx_win, win.grass.img, i.x, i.y);
-            i.y += 65;
-            i.j++;
-        }
-        i.y -= i.y;
-        i.j = 0;       
-        i.x += img_size;
-        i.i++;
-    }
-}
-int main(void)
+int ft_map_verfif(int fd)
 {
-    t_win win;
+    char *line;
+    t_index index;
 
-    win.grass.relative_path = "images/char/grass.xpm";
-    win.mlx = mlx_init();
-    win.mlx_win = mlx_new_window(win.mlx, 1920, 1080, "So long");
-    win.grass.img = mlx_xpm_file_to_image(win.mlx, win.grass.relative_path,
-    &win.grass.img_width, &win.grass.img_height);
-    win.grass.addr = mlx_get_data_addr(win.grass.img, &win.grass.bits_per_pixel,
-    &win.grass.line_length, &win.grass.endian);
-    ft_put_bg(win, 1920, 1080, 65);
-    
-    win.sasuke = ft_get_image_transparance(win.mlx, win.grass, "images/char/sasuke_front.xpm");
-    win.sasuke.x = 0;
-    win.sasuke.y = 0;
-    mlx_put_image_to_window(win.mlx, win.mlx_win, win.sasuke.img, win.sasuke.x, win.sasuke.y);
-    mlx_key_hook(win.mlx_win, ft_hook, &win);
+    index.i = 0;
+    index.j = 0;
+    line = get_next_line(fd);
+    index.l = ft_strlen(line);
+    while (line)
+    {
+        while(line[index.i])
+        {
+            if (index.j == 0)
+                if(line[index.i] != 1)
+                {
+                    ft_printf("Border Error\n");
+                    free(line);
+                    return(1);
+                }
+            index.i++;
+        }
+        index.j++;
+        free(line);
+        line = get_next_line(fd);
+        index.k = ft_strlen(line);
+        if (index.k != index.l)
+        {
+            ft_printf("Form Error\n");
+            free(line);
+            return(2);
+        }
+    }
+    ft_printf("Map OK\n");
+    return(0);
+}
 
-	mlx_loop(win.mlx);
+
+int main(int argc, char **argv)
+{
+    int fd;
+
+    fd = open(argv[1], O_RDONLY);
+    ft_map_verfif(fd);
 }

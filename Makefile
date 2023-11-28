@@ -4,7 +4,10 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra
 
-SRC = src/so_long.c
+SRC = src/so_long.c \
+	src/get_next_line.c \
+	src/get_next_line_utils.c \
+	src/utils.c
 
 LIB = mlx
 
