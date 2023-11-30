@@ -32,6 +32,14 @@ typedef struct	s_index {
     int j;
     int k;
     int l;
+    int c;
+    int e;
+    int p;
 }				t_index;
+
+void	*ft_freetabtabb(int k, char **tab);
+char **ft_realoc_tabtab(char **tab, int size);
+char **ft_get_map(int fd);
+int	ft_map_verif(char **map);
 
 #endif

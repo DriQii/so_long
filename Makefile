@@ -2,12 +2,11 @@ NAME = exe
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -g
 
 SRC = src/so_long.c \
-	src/get_next_line.c \
-	src/get_next_line_utils.c \
-	src/utils.c
+	src/get_map.c	\
+	src/map_error.c
 
 LIB = mlx
 
@@ -18,10 +17,10 @@ OBJ = $(SRC:.c=.o)
 all : $(NAME)
 
 src/%.o : src/%.c
-	$(CC) $(CFLAGS) -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) -c $< -o $@
+	$(CC) $(CFLAGS) -I include -L lib -l ft -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) -c $< -o $@
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) -l Xext -l X11 -l m -l z -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -I include -L lib -l ft -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) -l Xext -l X11 -l m -l z -o $(NAME)
 
 clean :
 	rm -rf $(OBJDIR)$(OBJ)

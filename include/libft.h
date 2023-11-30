@@ -6,9 +6,13 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 22:48:19 by evella            #+#    #+#             */
-/*   Updated: 2023/10/05 18:36:03 by evella           ###   ########.fr       */
+/*   Updated: 2023/11/30 13:11:29 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -17,12 +21,22 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include <stdarg.h>
+# include <stdint.h>
+# include <fcntl.h>
 
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_line
+{
+	char	*str;
+	char	buffer[BUFFER_SIZE + 1];
+	int		oread;
+}			t_line;
 
 int		ft_isalnum(char c);
 int		ft_isalpha(char c);
@@ -74,5 +88,13 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int		ft_putptr(unsigned long int n);
+int		ft_putnbr_hexa(unsigned int n, int upper, int format);
+int		ft_putchar(const char c);
+int		ft_putstr(const char *s);
+int		ft_putnbru(unsigned int n);
+int		ft_printf(const char *s, ...);
+int		ft_intlen(int n);
+char	*get_next_line(int fd);
 
 #endif
