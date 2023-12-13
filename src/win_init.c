@@ -6,30 +6,13 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:10:28 by evella            #+#    #+#             */
-/*   Updated: 2023/12/12 16:33:54 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/13 14:37:50 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 #include "../include/libft.h"
 
-void ft_tabtablen(t_win *win)
-{
-	int i;
-	int j;
-
-	j = 0;
-	i = 0;
-	while(win->map[i])
-	{
-		j = 0;
-		while(win->map[i][j])
-			j++;
-		i++;
-	}
-	win->y = i;
-	win->x = j - 1;
-}
 t_data    ft_get_image_transparance(void *mlx, t_data bg, char *path)
 {
     int i;
@@ -83,26 +66,35 @@ int ft_print_character(t_win *win, void *img, char c)
 	}
 	return(0);
 }
-t_coords *ft_get_coords(char **map, int c)
-{
-	t_index		i;
-	t_coords	*coords;
 
-	i.y = 0;
-	i.x = 0;
-	while (map[i.y])
-	{
-		while (map[i.y][i.x] && map[i.y][i.x] != '\n')
-		{
-			if(map[i.y][i.x] == c)
-				coords = ft_newlstcoords(i.x, i.y, coords);
-			i.x++;
-		}
-		i.x = 0;
-		i.y++;
-	}
-	return(coords);
+static void ft_player_init(t_win *win)
+{
+	win->player.front.still = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_front.xpm");
+	win->player.front.walk = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_front_walk.xpm");
+	win->player.front.walk2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_front_walk2.xpm");
+	win->player.front.fight = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_front_fight.xpm");
+	win->player.front.fight2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_front_fight2.xpm");
+	win->player.front.fight3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_front_fight3.xpm");
+	win->player.back.still = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_back.xpm");
+	win->player.back.walk = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_back_walk.xpm");
+	win->player.back.walk2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_back_walk2.xpm");
+	win->player.back.fight = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_back_fight.xpm");
+	win->player.back.fight2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_back_fight2.xpm");
+	win->player.back.fight3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_back_fight3.xpm");
+	win->player.left.still= ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_left.xpm");
+	win->player.left.walk = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_left_walk.xpm");
+	win->player.left.walk2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_left_walk2.xpm");
+	win->player.left.fight= ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_left_fight.xpm");
+	win->player.left.fight2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_left_fight2.xpm");
+	win->player.left.fight3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_left_fight3.xpm");
+	win->player.right.still = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right.xpm");
+	win->player.right.walk = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right_walk.xpm");
+	win->player.right.walk2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right_walk2.xpm");
+	win->player.right.fight = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right_fight.xpm");
+	win->player.right.fight2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right_fight2.xpm");
+	win->player.right.fight3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right_fight3.xpm");
 }
+
 void ft_char_init(t_win *win)
 {
 	win->bg.img = mlx_xpm_file_to_image(win->mlx, "images/char/backgroud.xpm",
@@ -110,24 +102,13 @@ void ft_char_init(t_win *win)
 	win->bg.addr = mlx_get_data_addr(win->bg.img, &win->bg.bits_per_pixel,
 	&win->bg.line_length, &win->bg.endian);
 	win->obstacle =	ft_get_image_transparance(win->mlx, win->bg, "images/char/obstacle.xpm");
-	win->kakashi.front = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_front.xpm");
-	win->kakashi.frontW = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_front_walk.xpm");
-	win->kakashi.frontW2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_front_walk2.xpm");
-	win->kakashi.back = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_back.xpm");
-	win->kakashi.backW = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_back_walk.xpm");
-	win->kakashi.backW2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_back_walk2.xpm");
-	win->kakashi.left= ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_left.xpm");
-	win->kakashi.leftW = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_left_walk.xpm");
-	win->kakashi.leftW2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_left_walk2.xpm");
-	win->kakashi.right = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right.xpm");
-	win->kakashi.rightW = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right_walk.xpm");
-	win->kakashi.rightW2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right_walk2.xpm");
-	win->naruto.front = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_front.xpm");
-	win->naruto.backW = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand.xpm");
-	win->naruto.frontW = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand2.xpm");
-	win->naruto.frontW2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand3.xpm");
-	win->naruto.back = ft_get_image_transparance(win->mlx, win->bg, "images/char/Sexy_jutsu.xpm");
+	win->ennemies.frame1 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_front.xpm");
+	win->ennemies.frame2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand.xpm");
+	win->ennemies.frame3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand2.xpm");
+	win->ennemies.frame4 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand3.xpm");
+	win->ennemies.frame5 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Sexy_jutsu.xpm");
 	win->escape = ft_get_image_transparance(win->mlx, win->bg, "images/char/escape.xpm");
+	ft_player_init(win);
 }
 void ft_win_init(t_win *win)
 {
@@ -142,11 +123,12 @@ void ft_win_init(t_win *win)
 	ft_char_init(win);
 	ft_print_character(win, win->bg.img, '0');
 	ft_print_character(win, win->obstacle.img, '1');
-	ft_print_character(win, win->kakashi.front.img, 'P');
-	ft_print_character(win, win->naruto.front.img, 'C');
+	ft_print_character(win, win->player.front.still.img, 'P');
+	ft_print_character(win, win->ennemies.frame1.img, 'C');
 	ft_print_character(win, win->escape.img, 'E');
 	k = ft_get_coords(win->map, 'P');
-	win->kakashi.x = k->x * 64;
-	win->kakashi.y = k->y * 64;
+	win->player.x = k->x * 64;
+	win->player.y = k->y * 64;
 	win->anim_count = 0;
+	win->pos = 'D';
 }
