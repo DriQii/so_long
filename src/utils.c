@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 14:42:03 by evella            #+#    #+#             */
-/*   Updated: 2023/12/08 17:01:46 by evella           ###   ########.fr       */
+/*   Created: 2023/12/06 12:19:23 by evella            #+#    #+#             */
+/*   Updated: 2023/12/07 19:53:00 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 #include "../include/libft.h"
 
-int main(int argc, char **argv)
+void ft_print_tabtab(char **tab)
 {
-	t_win	win;
+	int i;
 
-	if (argc != 2)
-		return(ft_printf("Error\nPlease give only one map as argument\n"), 1);
-	if(!(win.map = ft_map_verif(argv[1], &win)))
-		return (1);
-	ft_win_init(&win);
-	printf("%d\n", mlx_key_hook(win.mlx_win, ft_hook, &win) != 0);
-		//return(0);
-	mlx_loop_hook(win.mlx, ft_loop_hook, &win);
-	mlx_loop(win.mlx);
-	return(0);
+	i = 0;
+	while(tab[i])
+	{
+		ft_printf("%s", tab[i]);
+		i++;
+	}
+}
+
+void ft_print_coords(t_coords *lst)
+{
+	while (lst)
+	{
+		printf("%d %d\n", lst->y, lst->x);
+		lst = lst->next;
+	}
 }

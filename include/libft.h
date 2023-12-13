@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enzovella <enzovella@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 22:48:19 by evella            #+#    #+#             */
-/*   Updated: 2023/11/30 13:11:29 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/05 09:17:23 by enzovella        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_putchar(const char c);
 int		ft_putstr(const char *s);
 int		ft_putnbru(unsigned int n);
 int		ft_printf(const char *s, ...);
-int		ft_intlen(int n);
+int		ft_intlenn(int n);
 char	*get_next_line(int fd);
 
 #endif

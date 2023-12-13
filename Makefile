@@ -6,21 +6,25 @@ CFLAGS = -Wall -Wextra -g
 
 SRC = src/so_long.c \
 	src/get_map.c	\
-	src/map_error.c
+	src/map_error.c \
+	src/road_error.c \
+	src/utils.c \
+	src/win_init.c \
+	src/movement.c
 
 LIB = mlx
 
-MLXDIR = minilibx-linux
+MLXDIR = minilibx
 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
 src/%.o : src/%.c
-	$(CC) $(CFLAGS) -I include -L lib -l ft -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) -c $< -o $@
+	$(CC) $(CFLAGS) -I include -I $(MLXDIR) -c $< -o $@
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -I include -L lib -l ft -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) -l Xext -l X11 -l m -l z -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -I include -L lib -l ft -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) -framework OpenGL -framework AppKit -o $(NAME)
 
 clean :
 	rm -rf $(OBJDIR)$(OBJ)
