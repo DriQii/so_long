@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:42:03 by evella            #+#    #+#             */
-/*   Updated: 2023/12/08 17:01:46 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/14 12:17:33 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int main(int argc, char **argv)
 	if(!(win.map = ft_map_verif(argv[1], &win)))
 		return (1);
 	ft_win_init(&win);
-	printf("%d\n", mlx_key_hook(win.mlx_win, ft_hook, &win) != 0);
-		//return(0);
-	mlx_loop_hook(win.mlx, ft_loop_hook, &win);
+	mlx_key_hook(win.mlx_win, ft_hook, &win);
+	if (mlx_loop_hook(win.mlx, ft_loop_hook, &win) == 1)
+		return(0);
 	mlx_loop(win.mlx);
 	return(0);
 }

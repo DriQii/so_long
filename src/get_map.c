@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:42:22 by evella            #+#    #+#             */
-/*   Updated: 2023/12/05 21:27:37 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/14 14:34:40 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "../include/so_long.h"
 #include "../include/libft.h"
 
-void	*ft_freetabtabb(int k, char **tab)
+void	*ft_freetabtabb(int size, char **tab)
 {
     int i = 0;
-	while (k > 0)
+	while (i < size)
 	{
-		k--;
+		free(tab[i]);
         i++;
-		free(tab[k]);
 	}
+	//printf("%s", tab[0]);
     if(i > 0)
 	    free (tab);
 	return (NULL);
@@ -33,14 +33,20 @@ char **ft_realoc_tabtab(char **tab, int size)
     char **newtab;
 
     i = 0;
-    newtab = ft_calloc(sizeof(char *), size + 1);
-    while (i < size)
+    newtab = malloc(sizeof(char *) * (size + 2));
+	if(tab)
     {
-        newtab[i] = ft_strdup(tab[i]);
-        i++;
-    }
-    ft_freetabtabb(i, tab);
+		while (i < size && tab[i])
+		{
+			newtab[i] = ft_strdup(tab[i]);
+			i++;
+		}
+		ft_freetabtabb(i, tab);
+	}
+
     newtab[i] = NULL;
+	newtab[i + 1] = NULL;
+	//printf("%d\n", i);
     return(newtab);
 }
 
@@ -65,6 +71,6 @@ char **ft_get_map(int fd)
         tmp = get_next_line(fd);
         i.i++;
     }
-    map = ft_realoc_tabtab(map, i.i);
+    //map = ft_realoc_tabtab(map, i.i);
     return(map);
 }

@@ -10,7 +10,10 @@ SRC = src/so_long.c \
 	src/road_error.c \
 	src/utils.c \
 	src/win_init.c \
-	src/movement.c
+	src/movement.c \
+	src/anim.c \
+	src/fight_anim.c \
+	src/ennemies.c
 
 LIB = mlx
 

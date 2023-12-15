@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:10:28 by evella            #+#    #+#             */
-/*   Updated: 2023/12/13 14:37:50 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/15 15:39:07 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,29 @@ static void ft_player_init(t_win *win)
 	win->player.right.fight2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right_fight2.xpm");
 	win->player.right.fight3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/kakashi_right_fight3.xpm");
 }
+static void ft_ennemies_init(t_win *win)
+{
+	win->ennemies.frame1 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_front.xpm");
+	win->ennemies.frame2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand.xpm");
+	win->ennemies.frame3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand2.xpm");
+	win->ennemies.frame4 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand3.xpm");
+	win->ennemies.frame5 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Sexy_jutsu.xpm");
+	win->ennemies.dead = ft_get_image_transparance(win->mlx, win->bg, "images/char/naruto_dead.xpm");
+	win->ennemies.dead2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/naruto_dead2.xpm");
+	win->ennemies.dead3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/naruto_dead3.xpm");
+}
 
-void ft_char_init(t_win *win)
+static void ft_img_init(t_win *win)
 {
 	win->bg.img = mlx_xpm_file_to_image(win->mlx, "images/char/backgroud.xpm",
 	&win->bg.img_width, &win->bg.img_height);
 	win->bg.addr = mlx_get_data_addr(win->bg.img, &win->bg.bits_per_pixel,
 	&win->bg.line_length, &win->bg.endian);
 	win->obstacle =	ft_get_image_transparance(win->mlx, win->bg, "images/char/obstacle.xpm");
-	win->ennemies.frame1 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_front.xpm");
-	win->ennemies.frame2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand.xpm");
-	win->ennemies.frame3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand2.xpm");
-	win->ennemies.frame4 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand3.xpm");
-	win->ennemies.frame5 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Sexy_jutsu.xpm");
 	win->escape = ft_get_image_transparance(win->mlx, win->bg, "images/char/escape.xpm");
+	win->collectible = ft_get_image_transparance(win->mlx, win->bg, "images/char/collectible.xpm");
 	ft_player_init(win);
+	ft_ennemies_init(win);
 }
 void ft_win_init(t_win *win)
 {
@@ -120,15 +128,19 @@ void ft_win_init(t_win *win)
 	ft_tabtablen(win);
 	win->mlx = mlx_init();
 	win->mlx_win = mlx_new_window(win->mlx, win->x * 64, win->y * 64, "so long");
-	ft_char_init(win);
+	ft_img_init(win);
 	ft_print_character(win, win->bg.img, '0');
 	ft_print_character(win, win->obstacle.img, '1');
 	ft_print_character(win, win->player.front.still.img, 'P');
-	ft_print_character(win, win->ennemies.frame1.img, 'C');
+	ft_print_character(win, win->ennemies.frame1.img, 'N');
 	ft_print_character(win, win->escape.img, 'E');
+	ft_print_character(win, win->collectible.img, 'C');
 	k = ft_get_coords(win->map, 'P');
 	win->player.x = k->x * 64;
 	win->player.y = k->y * 64;
 	win->anim_count = 0;
-	win->pos = 'D';
+	win->keycode = 1;
+	win->ennemies.state = 0;
+	win->ennemies.x = 0;
+	win->ennemies.y = 0;
 }

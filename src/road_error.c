@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:41:57 by evella            #+#    #+#             */
-/*   Updated: 2023/12/13 10:14:45 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/15 15:49:56 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_coords	*ft_newlstcoords(int x, int y, t_coords *coords)
 {
 	t_coords	*node;
 
-	node = ft_calloc(sizeof(*node), 1);
+	node = ft_calloc(sizeof(node), 1);
 	if (!node)
 		return (NULL);
 	node->x = x;
@@ -58,18 +58,18 @@ t_character *ft_char_shearch(char **map, t_character **character)
 	return(*character);
 }
 
-t_coords	*ft_collectible_check(t_coords *P_coords, t_coords *C_coords, char **newmap)
+t_coords	*ft_collectible_check(t_coords *P_coords, t_coords *coords, char **newmap)
 {
 
-	while (C_coords)
+	while (coords)
 	{
-		if (((P_coords->y == C_coords->y && P_coords->x - 1 == C_coords->x)
-		|| (P_coords->y - 1 == C_coords->y && P_coords->x == C_coords->x)
-		|| (P_coords->y == C_coords->y && P_coords->x + 1 == C_coords->x)
-		|| (P_coords->y + 1 == C_coords->y && P_coords->x == C_coords->x))
-		&& newmap[C_coords->y - 1][C_coords->x - 1] == '0')
-			return(C_coords);
-		C_coords = C_coords->next;
+		if (((P_coords->y == coords->y && P_coords->x - 1 == coords->x)
+		|| (P_coords->y - 1 == coords->y && P_coords->x == coords->x)
+		|| (P_coords->y == coords->y && P_coords->x + 1 == coords->x)
+		|| (P_coords->y + 1 == coords->y && P_coords->x == coords->x))
+		&& newmap[coords->y - 1][coords->x - 1] == '0')
+			return(coords);
+		coords = coords->next;
 	}
 
 	return(NULL);
@@ -80,29 +80,34 @@ t_coords	*ft_zero_check(t_character character, char **map, char **newmap)
 	t_coords	*find;
 
 	find = ft_calloc(sizeof(*find), 1);
-	if (map[character.P_coords->y - 1][character.P_coords->x - 2] == '0' && newmap[character.P_coords->y - 1][character.P_coords->x - 2] == '0')
+	if ((map[character.P_coords->y - 1][character.P_coords->x - 2] == '0' || map[character.P_coords->y - 1][character.P_coords->x - 2] == 'N')
+	&& newmap[character.P_coords->y - 1][character.P_coords->x - 2] == '0')
 	{
 		find = ft_newlstcoords(character.P_coords->x - 1, character.P_coords->y, find);
 		return(find);
 	}
-	else if (map[character.P_coords->y - 2][character.P_coords->x - 1] == '0' && newmap[character.P_coords->y - 2][character.P_coords->x - 1] == '0')
+	else if ((map[character.P_coords->y - 2][character.P_coords->x - 1] == '0' || map[character.P_coords->y - 2][character.P_coords->x - 1] == 'N')
+	&& newmap[character.P_coords->y - 2][character.P_coords->x - 1] == '0')
 	{
 			find = ft_newlstcoords(character.P_coords->x, character.P_coords->y - 1, find);
 			return(find);
 	}
-	else if (map[character.P_coords->y - 1][character.P_coords->x] == '0' && newmap[character.P_coords->y - 1][character.P_coords->x] == '0')
+	else if ((map[character.P_coords->y - 1][character.P_coords->x] == '0' || map[character.P_coords->y - 1][character.P_coords->x] == 'N')
+	&& newmap[character.P_coords->y - 1][character.P_coords->x] == '0')
 	{
 		find = ft_newlstcoords(character.P_coords->x + 1, character.P_coords->y, find);
 		return(find);
 	}
-	else if (map[character.P_coords->y ][character.P_coords->x - 1] == '0' && newmap[character.P_coords->y ][character.P_coords->x - 1] == '0')
+	else if ((map[character.P_coords->y ][character.P_coords->x - 1] == '0' || map[character.P_coords->y ][character.P_coords->x - 1] == 'N')
+	&& newmap[character.P_coords->y ][character.P_coords->x - 1] == '0')
 	{
 		find = ft_newlstcoords(character.P_coords->x, character.P_coords->y + 1, find);
 		return(find);
 	}
+	printf("ok\n");
 	return(NULL);
 }
-int	ft_road_error(char **map, char **newmap, t_character *character)
+int	ft_road_error(char **map, char **newmap, t_character *character, int fd)
 {
 	t_coords	*find;
 	t_index		i;
@@ -139,7 +144,7 @@ int	ft_road_error(char **map, char **newmap, t_character *character)
 		}
 		if (i.i == character->C)
 			{
-				newmap = ft_new_map(map);
+				newmap = ft_new_map(map ,fd);
 				i.i++;
 			}
 	}

@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 12:19:23 by evella            #+#    #+#             */
-/*   Updated: 2023/12/13 14:33:23 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/14 14:19:08 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,39 @@ void ft_tabtablen(t_win *win)
 			j++;
 		i++;
 	}
+	printf("win %d, %d\n", i, j - 1);
 	win->y = i;
 	win->x = j - 1;
+}
+
+void	ft_destroy_anim(t_win *win, t_anim anim)
+{
+	mlx_destroy_image(win->mlx, anim.still.img);
+	mlx_destroy_image(win->mlx, anim.walk.img);
+	mlx_destroy_image(win->mlx, anim.walk2.img);
+	mlx_destroy_image(win->mlx, anim.fight.img);
+	mlx_destroy_image(win->mlx, anim.fight2.img);
+	mlx_destroy_image(win->mlx, anim.fight3.img);
+}
+void	ft_close_game(t_win *win, char *str)
+{
+	printf("\n\n%s\n\n", str);
+	mlx_destroy_window(win->mlx, win->mlx_win);
+	ft_destroy_anim(win, win->player.front);
+	ft_destroy_anim(win, win->player.back);
+	ft_destroy_anim(win, win->player.right);
+	ft_destroy_anim(win, win->player.left);
+	ft_freetabtabb(win->y, win->map);
+	exit(0);
+}
+void	ft_freecoords(t_coords *coords)
+{
+	t_coords *tmp;
+
+	while(coords)
+	{
+		tmp = coords;
+		coords = coords->next;
+		free(tmp);
+	}
 }
