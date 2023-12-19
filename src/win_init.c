@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:10:28 by evella            #+#    #+#             */
-/*   Updated: 2023/12/15 15:39:07 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/19 23:28:41 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void ft_win_init(t_win *win)
 
 	i.y = 0;
 	i.x = 0;
-	ft_tabtablen(win);
 	win->mlx = mlx_init();
 	win->mlx_win = mlx_new_window(win->mlx, win->x * 64, win->y * 64, "so long");
 	ft_img_init(win);

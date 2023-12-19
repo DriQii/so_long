@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:58:17 by evella            #+#    #+#             */
-/*   Updated: 2023/12/15 15:23:23 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/20 00:24:09 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,22 @@
 #include "../include/libft.h"
 
 
-char	**ft_new_map(char **map, int fd)
+void	ft_new_map(char **map, char **newmap)
 {
-	char	**newmap;
 	t_index	i;
 
 	i.i = 0;
 	i.l = ft_strlen(map[0]);
-	newmap = ft_get_map(fd);
 	while(map[i.i])
 	{
 		ft_memset(newmap[i.i], '0', i.l - 1);
 		i.i++;
 	}
 	//newmap = ft_realoc_tabtab(newmap, i.x);
-	return(newmap);
 }
 
-/* char	**ft_new_map(char **map)
+/* void	ft_new_map(char **map, char **newmap)
 {
-	char	**newmap;
 	char	*tmp;
 	t_index	i;
 
@@ -43,15 +39,15 @@ char	**ft_new_map(char **map, int fd)
 	i.l = ft_strlen(map[0]);
 	while(map[i.x])
 	{
-		newmap = ft_realoc_tabtab(newmap, i.x);
-		tmp = ft_calloc(sizeof(char), i.l);
+		//newmap = ft_realoc_tabtab(newmap, i.x);
+		tmp = ft_calloc(sizeof(char), i.l + 1);
 		ft_memset(tmp, '0', i.l);
 		tmp[i.l - 1] = '\n';
 		newmap[i.x] = tmp;
 		i.x++;
 	}
 	//newmap = ft_realoc_tabtab(newmap, i.x);
-	return(newmap);
+	//return(newmap);
 } */
 
 static int	ft_border_verif(char **map)
@@ -134,12 +130,22 @@ char	**ft_map_verif(char *file, t_win *win)
 	t_character	*character;
 
 	fd = open(file, O_RDONLY);
-    map = ft_get_map(fd);
+    map = ft_get_map(fd, win);
 	if (!map[0])
 		return (free(map), ft_printf("Error\nEmpty map\n"), NULL);
 	close(fd);
 	fd = open(file, O_RDONLY);
-	newmap = ft_new_map(map, fd);
+	/* char *tmp = get_next_line(fd);
+	int i = 0;
+	while (tmp)
+	{
+		i++;
+		free(tmp);
+		tmp = get_next_line(fd);
+	}
+	newmap = ft_calloc(sizeof(char *), i + 1); */
+	newmap = ft_get_map(fd, win);
+	ft_new_map(map, newmap);
 	close(fd);
 	fd = open(file, O_RDONLY);
 	if(!newmap)
@@ -151,7 +157,7 @@ char	**ft_map_verif(char *file, t_win *win)
 		return (free(map),free(newmap), NULL);
 	else if (ft_character_verif(map) != 0)
 		return (free(map),free(newmap), NULL);
-	else if(ft_road_error(map, newmap, character, fd) != 0)
+	else if(ft_road_error(map, newmap, character) != 0)
 		return (free(map),free(newmap), NULL);
 	ft_printf("Map OK\n");
 	win->c_count = character->C;
@@ -159,7 +165,9 @@ char	**ft_map_verif(char *file, t_win *win)
 	ft_freecoords(character->E_coords);
 	ft_freecoords(character->P_coords);
 	close(fd);
-	return (ft_freetabtabb(win->y, newmap), map);
+	ft_tabtablen(map, win);
+	newmap = ft_freetabtabb(win->y , newmap, win);
+	return (map);
 }
 
 

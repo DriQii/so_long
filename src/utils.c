@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 12:19:23 by evella            #+#    #+#             */
-/*   Updated: 2023/12/14 14:19:08 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/20 00:18:13 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ void ft_print_tabtab(char **tab)
 	int i;
 
 	i = 0;
-	while(tab[i])
+	if(tab)
 	{
-		ft_printf("%s", tab[i]);
-		i++;
+		while(tab[i])
+		{
+			ft_printf("%s", tab[i]);
+			i++;
+		}
 	}
 }
 
@@ -55,17 +58,17 @@ t_coords *ft_get_coords(char **map, int c)
 	return(coords);
 }
 
-void ft_tabtablen(t_win *win)
+void ft_tabtablen(char **tab, t_win *win)
 {
 	int i;
 	int j;
 
 	j = 0;
 	i = 0;
-	while(win->map[i])
+	while(tab[i])
 	{
 		j = 0;
-		while(win->map[i][j])
+		while(tab[i][j])
 			j++;
 		i++;
 	}
@@ -91,7 +94,7 @@ void	ft_close_game(t_win *win, char *str)
 	ft_destroy_anim(win, win->player.back);
 	ft_destroy_anim(win, win->player.right);
 	ft_destroy_anim(win, win->player.left);
-	ft_freetabtabb(win->y, win->map);
+	ft_freetabtabb(win->y, win->map , win);
 	exit(0);
 }
 void	ft_freecoords(t_coords *coords)
