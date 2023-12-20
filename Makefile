@@ -21,13 +21,27 @@ MLXDIR = minilibx
 
 OBJ = $(SRC:.c=.o)
 
+OSFLAG 				:=
+MLXDIR				:=
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	OSFLAG = -lXext -lX11 -lm -lz
+	MLXDIR = minilibx-linux
+endif
+UNAME_P := $(shell uname -p)
+ifneq ($(filter arm%,$(UNAME_P)),)
+	OSFLAG = -framework OpenGL -framework AppKit
+	MLXDIR = minilibx
+endif
+
 all : $(NAME)
 
 src/%.o : src/%.c
 	$(CC) $(CFLAGS) -I include -I $(MLXDIR) -c $< -o $@
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -I include -L lib -l ft -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -I include -L lib -l ft -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) $(OSFLAG) -o $(NAME)
 
 clean :
 	rm -rf $(OBJDIR)$(OBJ)
