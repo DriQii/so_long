@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:41:57 by evella            #+#    #+#             */
-/*   Updated: 2023/12/19 23:24:05 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/21 15:36:59 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ t_coords	*ft_zero_check(t_character character, char **map, char **newmap)
 		find = ft_newlstcoords(character.P_coords->x, character.P_coords->y + 1, find);
 		return(find);
 	}
-	printf("ok\n");
 	return(free(find), NULL);
 }
 int	ft_road_error(char **map, char **newmap, t_character *character)

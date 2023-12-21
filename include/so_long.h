@@ -58,6 +58,7 @@ typedef struct	s_win {
 	int			loop;
 	int			anim_count;
 	int			keycode;
+	int			moove;
 	t_player	player;
 	t_ennemies	ennemies;
 	t_data		obstacle;
