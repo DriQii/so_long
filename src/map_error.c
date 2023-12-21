@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:58:17 by evella            #+#    #+#             */
-/*   Updated: 2023/12/20 00:24:09 by evella           ###   ########.fr       */
+/*   Updated: 2023/12/21 15:21:14 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,27 +139,15 @@ char	**ft_map_verif(char *file, t_win *win)
 	newmap = ft_get_map(fd);
 	ft_new_map(map, newmap);
 	close(fd);
-	fd = open(file, O_RDONLY);
 	if(!newmap)
-		return(free(map), NULL);
+		return(ft_freetabtabb(win->y , map), NULL);
 	ft_char_shearch(map, &character);
-	if (ft_shape_verif(map) != 0)
-		return (free(map),free(newmap), NULL);
-	else if (ft_border_verif(map) != 0)
-		return (free(map),free(newmap), NULL);
-	else if (ft_character_verif(map) != 0)
-		return (free(map),free(newmap), NULL);
-	else if(ft_road_error(map, newmap, character) != 0)
-		return (free(map),free(newmap), NULL);
-	ft_printf("Map OK\n");
+	if (ft_shape_verif(map) != 0 || ft_border_verif(map) != 0 || ft_character_verif(map) != 0 || ft_road_error(map, newmap, character) != 0)
+		return (ft_freetabtabb(win->y , map),ft_freetabtabb(win->y , newmap), ft_freecoords(character->C_coords)
+		, ft_freecoords(character->E_coords), ft_freecoords(character->P_coords), free(character), NULL);
 	win->c_count = character->C;
-	ft_freecoords(character->C_coords);
-	ft_freecoords(character->E_coords);
-	ft_freecoords(character->P_coords);
-	free(character);
-	close(fd);
 	newmap = ft_freetabtabb(win->y , newmap);
-	return (map);
+	return (ft_freecoords(character->C_coords), ft_freecoords(character->E_coords), ft_freecoords(character->P_coords), free(character), map);
 }
 
 
