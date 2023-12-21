@@ -17,7 +17,7 @@ t_coords	*ft_newlstcoords(int x, int y, t_coords *coords)
 {
 	t_coords	*node;
 
-	node = ft_calloc(sizeof(node), 1);
+	node = ft_calloc(sizeof(*node), 1);
 	if (!node)
 		return (NULL);
 	node->x = x;
@@ -89,8 +89,8 @@ t_coords	*ft_zero_check(t_character character, char **map, char **newmap)
 	else if ((map[character.P_coords->y - 2][character.P_coords->x - 1] == '0' || map[character.P_coords->y - 2][character.P_coords->x - 1] == 'N')
 	&& newmap[character.P_coords->y - 2][character.P_coords->x - 1] == '0')
 	{
-			find = ft_newlstcoords(character.P_coords->x, character.P_coords->y - 1, find);
-			return(find);
+		find = ft_newlstcoords(character.P_coords->x, character.P_coords->y - 1, find);
+		return(find);
 	}
 	else if ((map[character.P_coords->y - 1][character.P_coords->x] == '0' || map[character.P_coords->y - 1][character.P_coords->x] == 'N')
 	&& newmap[character.P_coords->y - 1][character.P_coords->x] == '0')
@@ -105,23 +105,25 @@ t_coords	*ft_zero_check(t_character character, char **map, char **newmap)
 		return(find);
 	}
 	printf("ok\n");
-	return(NULL);
+	return(free(find), NULL);
 }
 int	ft_road_error(char **map, char **newmap, t_character *character)
 {
 	t_coords	*find;
+	t_coords	*tmp;
 	t_index		i;
 
 	i.i = 0;
 	i.j = 0;
-	find = ft_calloc(sizeof(*find), 1);
 	while (character->P_coords)
 	{
 		if(i.i == character->C + 1)
 		{
 			find = ft_collectible_check(character->P_coords, character->E_coords, newmap);
 			if(find)
-				i.j = 1;
+			{
+				return(0);
+			}
 			newmap[character->P_coords->y - 1][character->P_coords->x - 1] = '1';
 		}
 		if ((find = ft_collectible_check(character->P_coords, character->C_coords, newmap)))
@@ -138,9 +140,15 @@ int	ft_road_error(char **map, char **newmap, t_character *character)
 				{
 					character->P_coords = ft_newlstcoords(find->x, find->y, character->P_coords);
 					newmap[find->y - 1][find->x - 1] = '1';
+					free(find->next);
+					free(find);
 				}
 			else
-				character->P_coords = character->P_coords->next;
+				{
+					tmp = character->P_coords;
+					character->P_coords = character->P_coords->next;
+					free(tmp);
+				}
 		}
 		if (i.i == character->C)
 			{
@@ -148,8 +156,5 @@ int	ft_road_error(char **map, char **newmap, t_character *character)
 				i.i++;
 			}
 	}
-	if(i.i - 1 == character->C && i.j == 1)
-		return (0);
-	else
-		return(printf("Error\nNo way to reach all the collectibles and the exit\n"), 1);
+	return(printf("Error\nNo way to reach all the collectibles and the exit\n"), 1);
 }

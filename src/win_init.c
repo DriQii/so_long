@@ -96,7 +96,7 @@ static void ft_player_init(t_win *win)
 }
 static void ft_ennemies_init(t_win *win)
 {
-	win->ennemies.frame1 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_front.xpm");
+	win->ennemies.frame1 = ft_get_image_transparance(win->mlx, win->bg, "images/char/naruto_front.xpm");
 	win->ennemies.frame2 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand.xpm");
 	win->ennemies.frame3 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand2.xpm");
 	win->ennemies.frame4 = ft_get_image_transparance(win->mlx, win->bg, "images/char/Naruto_hand3.xpm");
@@ -142,4 +142,7 @@ void ft_win_init(t_win *win)
 	win->ennemies.state = 0;
 	win->ennemies.x = 0;
 	win->ennemies.y = 0;
+	win->loop = 0;
+	free(k->next);
+	free(k);
 }

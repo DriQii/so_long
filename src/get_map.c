@@ -23,12 +23,9 @@ void	*ft_freetabtabb(int size, char **tab, t_win *win)
 		tab[i] = NULL;
         i++;
 	}
-	if (tab[i])
-		free(tab[i]);
     if(i > 0)
 	    free (tab);
 	tab = NULL;
-	printf("win %d, %d, %d\n", i, win->y, win->x);
 	return (NULL);
 }
 char **ft_realoc_tabtab(char **tab, int size, t_win *win)
@@ -38,16 +35,13 @@ char **ft_realoc_tabtab(char **tab, int size, t_win *win)
 
     i = 0;
     newtab = malloc(sizeof(char *) * (size + 2));
-	if(tab)
-    {
-		while (i < size && tab[i])
-		{
-			newtab[i] = ft_strdup(tab[i]);
-			i++;
-		}
-		ft_freetabtabb(i, tab, win);
+	while (i < size && tab[i])
+	{
+		newtab[i] = ft_strdup(tab[i]);
+		i++;
 	}
-
+	if (i > 0)
+		ft_freetabtabb(i, tab, win);
     newtab[i] = NULL;
 	newtab[i + 1] = NULL;
 	//printf("%d\n", i);
@@ -61,20 +55,23 @@ char **ft_get_map(int fd, t_win *win)
     t_index i;
 
     i.i = 0;
-    tmp = get_next_line(fd);
+    
+	map = ft_calloc(sizeof(char *), 1);
+	if(!map)
+		return(NULL);
+	map[0] = NULL;
+	tmp = get_next_line(fd);
 	if (!tmp)
-	{
-		map = ft_calloc(sizeof(char *), 1);
-		map[0] = NULL;
 		return (map);
-	}
     while(tmp)
     {
-        map = ft_realoc_tabtab(map, i.i, win);
+        
         map[i.i] = tmp;
+		i.i++;
+		map = ft_realoc_tabtab(map, i.i, win);
         tmp = get_next_line(fd);
-        i.i++;
+        
     }
-    //map = ft_realoc_tabtab(map, i.i);
+    map = ft_realoc_tabtab(map, i.i, win);
     return(map);
 }

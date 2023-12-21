@@ -21,7 +21,6 @@ int main(int argc, char **argv)
 		return(ft_printf("Error\nPlease give only one map as argument\n"), 1);
 	if(!(win.map = ft_map_verif(argv[1], &win)))
 		return (1);
-	//ft_freetabtabb(win.y, win.map, &win);
 	ft_win_init(&win);
 	mlx_key_hook(win.mlx_win, ft_hook, &win);
 	if (mlx_loop_hook(win.mlx, ft_loop_hook, &win) == 1)

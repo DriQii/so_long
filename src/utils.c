@@ -44,6 +44,7 @@ t_coords *ft_get_coords(char **map, int c)
 
 	i.y = 0;
 	i.x = 0;
+	coords = ft_calloc(sizeof(*coords), 1);
 	while (map[i.y])
 	{
 		while (map[i.y][i.x] && map[i.y][i.x] != '\n')
@@ -72,7 +73,6 @@ void ft_tabtablen(char **tab, t_win *win)
 			j++;
 		i++;
 	}
-	printf("win %d, %d\n", i, j - 1);
 	win->y = i;
 	win->x = j - 1;
 }
@@ -95,6 +95,8 @@ void	ft_close_game(t_win *win, char *str)
 	ft_destroy_anim(win, win->player.right);
 	ft_destroy_anim(win, win->player.left);
 	ft_freetabtabb(win->y, win->map , win);
+	mlx_destroy_display(win->mlx);
+	free(win->mlx);
 	exit(0);
 }
 void	ft_freecoords(t_coords *coords)

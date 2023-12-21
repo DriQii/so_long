@@ -51,16 +51,22 @@ int	ft_check_moove(t_win *win)
 int	ft_hook(int keycode, t_win *win)
 {
 	printf("%d\n",keycode);
-	if(keycode == 13 || keycode == 0 || keycode == 1 || keycode == 2
-	|| keycode == 123 || keycode == 124 || keycode == 125 || keycode == 126)
+	if (keycode == 49 || keycode == 32)
+		return(ft_put_fight_anim(win), 1);
+	else if (keycode == 13 || keycode == 126 || keycode == 119 || keycode == 65362)
+		win->keycode = 13;
+	else if (keycode == 0 || keycode == 123 || keycode == 97 || keycode == 65361)
+		win->keycode = 0;
+	else if (keycode == 1 || keycode == 125 || keycode == 115 || keycode == 65364)
+		win->keycode = 1;
+	else if (keycode == 2 || keycode == 124 || keycode == 100 || keycode == 65363)
+		win->keycode = 2;
+	if(win->keycode == 13 || win->keycode == 0 || win->keycode == 1 || win->keycode == 2)
 	{
-		win->keycode = keycode;
 		ft_put_walkanim(win);
 		if(win->map[win->player.y / 64][win->player.x / 64] == 'E')
 			ft_close_game(win, "GG You just won the game !!!!!");
 	}
-	else if (keycode == 49)
-		ft_put_fight_anim(win);
 	return (1);
 }
 
