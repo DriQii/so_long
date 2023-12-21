@@ -14,7 +14,7 @@
 #include "../include/so_long.h"
 #include "../include/libft.h"
 
-void	*ft_freetabtabb(int size, char **tab, t_win *win)
+void	*ft_freetabtabb(int size, char **tab)
 {
     int i = 0;
 	while (i < size)
@@ -28,7 +28,7 @@ void	*ft_freetabtabb(int size, char **tab, t_win *win)
 	tab = NULL;
 	return (NULL);
 }
-char **ft_realoc_tabtab(char **tab, int size, t_win *win)
+char **ft_realoc_tabtab(char **tab, int size)
 {
     int i;
     char **newtab;
@@ -41,14 +41,14 @@ char **ft_realoc_tabtab(char **tab, int size, t_win *win)
 		i++;
 	}
 	if (i > 0)
-		ft_freetabtabb(i, tab, win);
+		ft_freetabtabb(i, tab);
     newtab[i] = NULL;
 	newtab[i + 1] = NULL;
 	//printf("%d\n", i);
     return(newtab);
 }
 
-char **ft_get_map(int fd, t_win *win)
+char **ft_get_map(int fd)
 {
     char    **map;
     char    *tmp;
@@ -68,10 +68,10 @@ char **ft_get_map(int fd, t_win *win)
         
         map[i.i] = tmp;
 		i.i++;
-		map = ft_realoc_tabtab(map, i.i, win);
+		map = ft_realoc_tabtab(map, i.i);
         tmp = get_next_line(fd);
         
     }
-    map = ft_realoc_tabtab(map, i.i, win);
+    map = ft_realoc_tabtab(map, i.i);
     return(map);
 }

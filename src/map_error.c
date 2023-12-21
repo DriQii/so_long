@@ -130,13 +130,13 @@ char	**ft_map_verif(char *file, t_win *win)
 	t_character	*character;
 
 	fd = open(file, O_RDONLY);
-    map = ft_get_map(fd, win);
+    map = ft_get_map(fd);
 	if (!map[0])
 		return (free(map), ft_printf("Error\nEmpty map\n"), NULL);
 	close(fd);
 	ft_tabtablen(map, win);
 	fd = open(file, O_RDONLY);
-	newmap = ft_get_map(fd, win);
+	newmap = ft_get_map(fd);
 	ft_new_map(map, newmap);
 	close(fd);
 	fd = open(file, O_RDONLY);
@@ -158,7 +158,7 @@ char	**ft_map_verif(char *file, t_win *win)
 	ft_freecoords(character->P_coords);
 	free(character);
 	close(fd);
-	newmap = ft_freetabtabb(win->y , newmap, win);
+	newmap = ft_freetabtabb(win->y , newmap);
 	return (map);
 }
 

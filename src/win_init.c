@@ -120,11 +120,8 @@ static void ft_img_init(t_win *win)
 }
 void ft_win_init(t_win *win)
 {
-	t_index i;
 	t_coords *k;
 
-	i.y = 0;
-	i.x = 0;
 	win->mlx = mlx_init();
 	win->mlx_win = mlx_new_window(win->mlx, win->x * 64, win->y * 64, "so long");
 	ft_img_init(win);

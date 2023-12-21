@@ -94,8 +94,7 @@ void	ft_close_game(t_win *win, char *str)
 	ft_destroy_anim(win, win->player.back);
 	ft_destroy_anim(win, win->player.right);
 	ft_destroy_anim(win, win->player.left);
-	ft_freetabtabb(win->y, win->map , win);
-	mlx_destroy_display(win->mlx);
+	ft_freetabtabb(win->y, win->map);
 	free(win->mlx);
 	exit(0);
 }
