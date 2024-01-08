@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:10:28 by evella            #+#    #+#             */
-/*   Updated: 2023/12/21 15:41:21 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/08 12:41:34 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,33 @@ static void ft_img_init(t_win *win)
 	ft_player_init(win);
 	ft_ennemies_init(win);
 }
+
+char	**ft_add_moove_map(char **map, t_win *win)
+{
+	t_index	i;
+	char **newmap;
+
+	i.i = 0;
+	i.l = ft_strlen(map[0]);
+	newmap = ft_calloc(sizeof(char *), win->y + 2);
+	newmap[0] = ft_calloc(sizeof(char), i.l + 1);
+	ft_memset(newmap[0], 'M', i.l - 1);
+	newmap[0][i.l - 1] = '\n';
+	while(map[i.i])
+	{
+		newmap[i.i + 1] = ft_strdup(map[i.i]);
+		i.i++;
+	}
+	ft_freetabtabb(win->y, map);
+	return (newmap);
+}
+
 void ft_win_init(t_win *win)
 {
 	t_coords *k;
 
+	//win->y++;
+	//win->map = ft_add_moove_map(win->map, win);
 	win->mlx = mlx_init();
 	win->mlx_win = mlx_new_window(win->mlx, win->x * 64, win->y * 64, "so long");
 	ft_img_init(win);

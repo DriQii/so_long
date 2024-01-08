@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:53:06 by evella            #+#    #+#             */
-/*   Updated: 2023/12/21 15:46:37 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/08 13:01:19 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ int	ft_check_moove(t_win *win)
 {
 	int	tmpx;
 	int tmpy;
+	char *tmp;
+	char *str;
+	char *strmoove;
 
 	tmpy = 0;
 	tmpx = 0;
@@ -35,7 +38,19 @@ int	ft_check_moove(t_win *win)
 	|| win->map[win->player.y / 64 + tmpy][win->player.x / 64 + tmpx] == 'P')
 	{
 		win->moove++;
-		ft_printf("moove = %d\n", win->moove);
+		tmp = ft_itoa(win->moove);
+		str = ft_strdup("Number of moove : ");
+		strmoove = ft_strjoin(str, tmp);
+		mlx_put_image_to_window(win->mlx, win->mlx_win, win->bg.img, 0, 0);
+		mlx_put_image_to_window(win->mlx, win->mlx_win, win->bg.img, 64, 0);
+		mlx_put_image_to_window(win->mlx, win->mlx_win, win->bg.img, 128, 0);
+		mlx_put_image_to_window(win->mlx, win->mlx_win, win->obstacle.img, 0, 0);
+		mlx_put_image_to_window(win->mlx, win->mlx_win, win->obstacle.img, 64, 0);
+		mlx_put_image_to_window(win->mlx, win->mlx_win, win->obstacle.img, 128, 0);
+		mlx_string_put(win->mlx, win->mlx_win, 10, 10, 0x00000000, strmoove);
+		free(strmoove);
+		free(str);
+		free(tmp);
 		if(win->map[win->player.y / 64 + tmpy ][win->player.x / 64 + tmpx] == 'N')
 			ft_close_game(win, "You loose !!!!!");
 		if(win->map[win->player.y / 64 + tmpy ][win->player.x / 64 + tmpx] == 'C')
