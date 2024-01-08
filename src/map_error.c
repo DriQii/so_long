@@ -77,8 +77,8 @@ static int	ft_character_verif(char **map)
 		i.i++;
 	}
 	if (i.c == 0 || i.e != 1 || i.p != 1)
-		return (ft_printf("Error\nThe map must contain a single P a single E and at least one C\n"),
-			1);
+		return (ft_printf("Error\n \
+		The map must contain a single P a single E and at least one C\n"), 1);
 	return (0);
 }
 

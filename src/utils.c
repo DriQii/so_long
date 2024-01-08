@@ -62,6 +62,7 @@ void	ft_destroy_anim(t_win *win, t_anim anim)
 	mlx_destroy_image(win->mlx, anim.fight2.img);
 	mlx_destroy_image(win->mlx, anim.fight3.img);
 }
+
 void	ft_close_game(t_win *win, char *str)
 {
 	ft_printf("\n\n%s\n\n", str);
@@ -74,6 +75,7 @@ void	ft_close_game(t_win *win, char *str)
 	free(win->mlx);
 	exit(0);
 }
+
 void	ft_freecoords(t_coords *coords)
 {
 	t_coords	*tmp;

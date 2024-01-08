@@ -15,7 +15,7 @@
 
 static int	ft_check_ennemies(t_win *win)
 {
-	if(win->map[win->player.y / 64 - 1][win->player.x / 64] == 'N')
+	if (win->map[win->player.y / 64 - 1][win->player.x / 64] == 'N')
 	{
 		win->keycode = 13;
 		return (1);

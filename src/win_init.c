@@ -28,21 +28,22 @@ t_data	ft_get_image_transparance(void *mlx, t_data bg, char *path)
 	{
 		while (j <= (c.line_length / 4))
 		{
-			if ((c.addr[(i * c.line_length) + (j * (c.bits_per_pixel
-							/ 8))] == 0) && (c.addr[(i * c.line_length) + (j
-						* (c.bits_per_pixel / 8)) + 1] == 0) && (c.addr[(i
-						* c.line_length) + (j * (c.bits_per_pixel / 8))
-					+ 2] == 0))
+			if ((c.addr[(i * c.line_length) \
+				+ (j * (c.bits_per_pixel / 8))] == 0) \
+				&& (c.addr[(i * c.line_length) \
+				+ (j * (c.bits_per_pixel / 8)) + 1] == 0) \
+				&& (c.addr[(i * c.line_length) \
+				+ (j * (c.bits_per_pixel / 8)) + 2] == 0))
 			{
-				c.addr[(i * c.line_length) + (j * (c.bits_per_pixel
-							/ 8))] = bg.addr[(i * c.line_length) + (j
-						* (c.bits_per_pixel / 8))];
-				c.addr[(i * c.line_length) + (j * (c.bits_per_pixel / 8))
-					+ 1] = bg.addr[(i * c.line_length) + (j * (c.bits_per_pixel
-							/ 8)) + 1];
-				c.addr[(i * c.line_length) + (j * (c.bits_per_pixel / 8))
-					+ 2] = bg.addr[(i * c.line_length) + (j * (c.bits_per_pixel
-							/ 8)) + 2];
+				c.addr[(i * c.line_length) + (j * (c.bits_per_pixel / 8))]
+					= bg.addr[(i * c.line_length) \
+					+ (j * (c.bits_per_pixel / 8))];
+				c.addr[(i * c.line_length) + (j * (c.bits_per_pixel / 8)) + 1]
+					= bg.addr[(i * c.line_length) \
+					+ (j * (c.bits_per_pixel / 8)) + 1];
+				c.addr[(i * c.line_length) + (j * (c.bits_per_pixel / 8)) + 2]
+					= bg.addr[(i * c.line_length) \
+					+ (j * (c.bits_per_pixel / 8)) + 2];
 			}
 			j++;
 		}
@@ -50,29 +51,6 @@ t_data	ft_get_image_transparance(void *mlx, t_data bg, char *path)
 		i++;
 	}
 	return (c);
-}
-int	ft_print_character(t_win *win, void *img, char c)
-{
-	t_index	i;
-
-	i.y = 0;
-	i.x = 0;
-	while (i.y < win->y)
-	{
-		while (i.x < win->x)
-		{
-			if (c == '0')
-				mlx_put_image_to_window(win->mlx, win->mlx_win, img, i.x * 64,
-					i.y * 64);
-			else if (win->map[i.y][i.x] == c)
-				mlx_put_image_to_window(win->mlx, win->mlx_win, img, i.x * 64,
-					i.y * 64);
-			i.x++;
-		}
-		i.x = 0;
-		i.y++;
-	}
-	return (0);
 }
 
 static void	ft_player_init(t_win *win)
@@ -126,6 +104,7 @@ static void	ft_player_init(t_win *win)
 	win->player.right.fight3 = ft_get_image_transparance(win->mlx, win->bg,
 			"images/char/kakashi_right_fight3.xpm");
 }
+
 static void	ft_ennemies_init(t_win *win)
 {
 	win->ennemies.frame1 = ft_get_image_transparance(win->mlx, win->bg,
