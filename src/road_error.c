@@ -13,79 +13,6 @@
 #include "../include/libft.h"
 #include "../include/so_long.h"
 
-t_coords	*ft_newlstcoords(int x, int y, t_coords *coords)
-{
-	t_coords	*node;
-
-	node = ft_calloc(sizeof(*node), 1);
-	if (!node)
-		return (NULL);
-	node->x = x;
-	node->y = y;
-	if (coords)
-		node->next = coords;
-	coords = node;
-	return (coords);
-}
-
-void	ft_char_coords(t_character **character, t_index i, char c)
-{
-	if (c == 'C')
-	{
-		(*character)->C++;
-		(*character)->C_coords = ft_newlstcoords(i.x + 1, i.y + 1,
-				(*character)->C_coords);
-	}
-	else if (c == 'P')
-		(*character)->P_coords = ft_newlstcoords(i.x + 1, i.y + 1,
-				(*character)->P_coords);
-	else if (c == 'E')
-		(*character)->E_coords = ft_newlstcoords(i.x + 1, i.y + 1,
-				(*character)->E_coords);
-}
-
-t_character	*ft_char_shearch(char **map, t_character **character)
-{
-	t_index	i;
-
-	i.y = 0;
-	i.x = 0;
-	(*character) = ft_calloc(sizeof(*(*character)), 1);
-	(*character)->C = 0;
-	while (map[i.y])
-	{
-		while (map[i.y][i.x] && map[i.y][i.x] != '\n')
-		{
-			if (map[i.y][i.x] == 'C')
-				ft_char_coords(character, i, 'C');
-			else if (map[i.y][i.x] == 'P')
-				ft_char_coords(character, i, 'P');
-			else if (map[i.y][i.x] == 'E')
-				ft_char_coords(character, i, 'E');
-			i.x++;
-		}
-		i.x = 0;
-		i.y++;
-	}
-	return (*character);
-}
-
-t_coords	*ft_collectible_check(t_coords *P_coords, t_coords *coords,
-		char **newmap)
-{
-	while (coords)
-	{
-		if (((P_coords->y == coords->y && P_coords->x - 1 == coords->x)
-				|| (P_coords->y - 1 == coords->y && P_coords->x == coords->x)
-				|| (P_coords->y == coords->y && P_coords->x + 1 == coords->x)
-				|| (P_coords->y + 1 == coords->y && P_coords->x == coords->x))
-			&& newmap[coords->y - 1][coords->x - 1] == '0')
-			return (coords);
-		coords = coords->next;
-	}
-	return (NULL);
-}
-
 t_coords	*ft_zero_check(t_character character, char **map, char **newmap)
 {
 	t_index		i;
@@ -109,14 +36,16 @@ t_coords	*ft_zero_check(t_character character, char **map, char **newmap)
 		&& newmap[character.P_coords->y][character.P_coords->x - 1] == '0')
 		i.y++;
 	if (i.y != 0 || i.x != 0)
-		return (ft_newlstcoords(character.P_coords->x + i.x, character.P_coords->y
-				+ i.y, NULL));
+		return (ft_newlstcoords(character.P_coords->x + i.x, \
+			character.P_coords->y + i.y, NULL));
 	return (NULL);
 }
+
 static void	ft_check_road(char **map, char **newmap, t_character *character)
 {
 	t_coords	*find;
 	t_coords	*tmp;
+
 	find = ft_zero_check(*character, map, newmap);
 	if (find)
 	{
@@ -133,6 +62,7 @@ static void	ft_check_road(char **map, char **newmap, t_character *character)
 		free(tmp);
 	}
 }
+
 static int	ft_check_exit(int c_count, char **newmap, t_character *character)
 {
 	t_coords	*find;
@@ -149,9 +79,11 @@ static int	ft_check_exit(int c_count, char **newmap, t_character *character)
 	return (0);
 }
 
-static int ft_check_c(char **map, char **newmap, t_character *character, int c_count)
+static int	ft_check_c(char **map, char **newmap
+	, t_character *character, int c_count)
 {
 	t_coords	*find;
+
 	find = ft_collectible_check(character->P_coords, \
 	character->C_coords, newmap);
 	if (find)
@@ -166,15 +98,15 @@ static int ft_check_c(char **map, char **newmap, t_character *character, int c_c
 		ft_check_road(map, newmap, character);
 	return (c_count);
 }
+
 int	ft_road_error(char **map, char **newmap, t_character *character)
 {
-
 	int			c_count;
 
 	c_count = 0;
 	while (character->P_coords)
 	{
-		if(ft_check_exit(c_count, newmap, character))
+		if (ft_check_exit(c_count, newmap, character))
 			return (0);
 		c_count = ft_check_c(map, newmap, character, c_count);
 		if (c_count == character->C)
