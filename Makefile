@@ -8,11 +8,13 @@ SRC = src/so_long.c \
 	src/get_map.c	\
 	src/map_error.c \
 	src/road_error.c \
+	src/road_error2.c \
 	src/utils.c \
 	src/win_init.c \
 	src/movement.c \
 	src/anim.c \
 	src/fight_anim.c \
+	src/char_init.c \
 	src/ennemies.c
 
 LIB = mlx
