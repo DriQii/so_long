@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:41:57 by evella            #+#    #+#             */
-/*   Updated: 2024/01/08 15:00:59 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/09 11:26:46 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ t_coords	*ft_newlstcoords(int x, int y, t_coords *coords)
 	return (coords);
 }
 
+void	ft_char_coords(t_character **character, t_index i, char c)
+{
+	if (c == 'C')
+	{
+		(*character)->C++;
+		(*character)->C_coords = ft_newlstcoords(i.x + 1, i.y + 1,
+				(*character)->C_coords);
+	}
+	else if (c == 'P')
+		(*character)->P_coords = ft_newlstcoords(i.x + 1, i.y + 1,
+				(*character)->P_coords);
+	else if (c == 'E')
+		(*character)->E_coords = ft_newlstcoords(i.x + 1, i.y + 1,
+				(*character)->E_coords);
+}
+
 t_character	*ft_char_shearch(char **map, t_character **character)
 {
 	t_index	i;
@@ -41,17 +57,11 @@ t_character	*ft_char_shearch(char **map, t_character **character)
 		while (map[i.y][i.x] && map[i.y][i.x] != '\n')
 		{
 			if (map[i.y][i.x] == 'C')
-			{
-				(*character)->C++;
-				(*character)->C_coords = ft_newlstcoords(i.x + 1, i.y + 1,
-						(*character)->C_coords);
-			}
+				ft_char_coords(character, i, 'C');
 			else if (map[i.y][i.x] == 'P')
-				(*character)->P_coords = ft_newlstcoords(i.x + 1, i.y + 1,
-						(*character)->P_coords);
+				ft_char_coords(character, i, 'P');
 			else if (map[i.y][i.x] == 'E')
-				(*character)->E_coords = ft_newlstcoords(i.x + 1, i.y + 1,
-						(*character)->E_coords);
+				ft_char_coords(character, i, 'E');
 			i.x++;
 		}
 		i.x = 0;
@@ -78,33 +88,30 @@ t_coords	*ft_collectible_check(t_coords *P_coords, t_coords *coords,
 
 t_coords	*ft_zero_check(t_character character, char **map, char **newmap)
 {
-	t_coords	*find;
-	int			y;
-	int			x;
+	t_index		i;
 
-	x = 0;
-	y = 0;
-	find = ft_calloc(sizeof(*find), 1);
+	i.x = 0;
+	i.y = 0;
 	if ((map[character.P_coords->y - 1][character.P_coords->x - 2] == '0'
 		|| map[character.P_coords->y - 1][character.P_coords->x - 2] == 'N')
 		&& newmap[character.P_coords->y - 1][character.P_coords->x - 2] == '0')
-		x--;
+		i.x--;
 	else if ((map[character.P_coords->y - 2][character.P_coords->x - 1] == '0'
 		|| map[character.P_coords->y - 2][character.P_coords->x - 1] == 'N')
 		&& newmap[character.P_coords->y - 2][character.P_coords->x - 1] == '0')
-		y--;
+		i.y--;
 	else if ((map[character.P_coords->y - 1][character.P_coords->x] == '0'
 		|| map[character.P_coords->y - 1][character.P_coords->x] == 'N')
 		&& newmap[character.P_coords->y - 1][character.P_coords->x] == '0')
-		x++;
+		i.x++;
 	else if ((map[character.P_coords->y][character.P_coords->x - 1] == '0'
 		|| map[character.P_coords->y][character.P_coords->x - 1] == 'N')
 		&& newmap[character.P_coords->y][character.P_coords->x - 1] == '0')
-		y++;
-	if (y != 0 || x != 0)
-		return (ft_newlstcoords(character.P_coords->x + x, character.P_coords->y
-				+ y, find));
-	return (free(find), NULL);
+		i.y++;
+	if (i.y != 0 || i.x != 0)
+		return (ft_newlstcoords(character.P_coords->x + i.x, character.P_coords->y
+				+ i.y, NULL));
+	return (NULL);
 }
 
 int	ft_road_error(char **map, char **newmap, t_character *character)
