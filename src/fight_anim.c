@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:38:33 by evella            #+#    #+#             */
-/*   Updated: 2024/01/08 18:26:15 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/10 21:32:01 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,29 @@ static int	ft_check_ennemies(t_win *win)
 	return (0);
 }
 
-static void	ft_fightanim(t_win *win, t_anim anim)
+static void	ft_print_anim(t_win *win, t_data frame)
 {
 	mlx_put_image_to_window(win->mlx, win->mlx_win, win->bg.img, win->player.x,
 		win->player.y);
-	mlx_put_image_to_window(win->mlx, win->mlx_win, anim.fight.img,
+	mlx_put_image_to_window(win->mlx, win->mlx_win, frame.img,
 		win->player.x, win->player.y);
+}
+
+static void	ft_fightanim(t_win *win, t_anim anim)
+{
+	ft_print_anim(win, anim.fight);
 	mlx_do_sync(win->mlx);
 	usleep(25000);
-	mlx_put_image_to_window(win->mlx, win->mlx_win, win->bg.img, win->player.x,
-		win->player.y);
-	mlx_put_image_to_window(win->mlx, win->mlx_win, anim.fight2.img,
-		win->player.x, win->player.y);
+	ft_print_anim(win, anim.fight2);
 	mlx_do_sync(win->mlx);
 	usleep(50000);
-	mlx_put_image_to_window(win->mlx, win->mlx_win, win->bg.img, win->player.x,
-		win->player.y);
-	mlx_put_image_to_window(win->mlx, win->mlx_win, anim.fight3.img,
-		win->player.x, win->player.y);
+	ft_print_anim(win, anim.fight3);
 	mlx_do_sync(win->mlx);
 	usleep(35000);
-	mlx_put_image_to_window(win->mlx, win->mlx_win, win->bg.img, win->player.x,
-		win->player.y);
-	mlx_put_image_to_window(win->mlx, win->mlx_win, anim.fight.img,
-		win->player.x, win->player.y);
+	ft_print_anim(win, anim.fight);
 	mlx_do_sync(win->mlx);
 	usleep(25000);
-	mlx_put_image_to_window(win->mlx, win->mlx_win, win->bg.img, win->player.x,
-		win->player.y);
-	mlx_put_image_to_window(win->mlx, win->mlx_win, anim.still.img,
-		win->player.x, win->player.y);
+	ft_print_anim(win, anim.still);
 }
 
 void	ft_put_fight_anim(t_win *win)

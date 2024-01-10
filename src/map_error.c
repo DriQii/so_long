@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:58:17 by evella            #+#    #+#             */
-/*   Updated: 2024/01/08 15:22:51 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/10 22:24:21 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static int	ft_character_verif(char **map)
 	i.c = 0;
 	i.e = 0;
 	i.p = 0;
-	i.i = 0;
+	i.i = -1;
 	i.j = 0;
-	while (map[i.i])
+	while (map[++i.i])
 	{
 		while (map[i.i][i.j] && map[i.i][i.j] != '\n')
 		{
@@ -74,7 +74,6 @@ static int	ft_character_verif(char **map)
 			i.j++;
 		}
 		i.j = 0;
-		i.i++;
 	}
 	if (i.c == 0 || i.e != 1 || i.p != 1)
 		return (ft_printf("Error\n \
@@ -97,6 +96,14 @@ static int	ft_shape_verif(char **map)
 	}
 	return (0);
 }
+static void	*ft_map_error(t_character *character)
+{
+	ft_freecoords(character->C_coords);
+	ft_freecoords(character->E_coords);
+	ft_freecoords(character->P_coords);
+	free(character);
+	return (NULL);
+}
 
 char	**ft_map_verif(char *file, t_win *win)
 {
@@ -118,16 +125,11 @@ char	**ft_map_verif(char *file, t_win *win)
 	if (!newmap)
 		return (ft_freetabtabb(win->y, map), NULL);
 	ft_char_shearch(map, &character);
-	if (ft_shape_verif(map) != 0 || ft_border_verif(map) != 0
-		|| ft_character_verif(map) != 0 || ft_road_error(map, newmap,
-			character) != 0)
-		return (ft_freetabtabb(win->y, map), ft_freetabtabb(win->y, newmap),
-			ft_freecoords(character->C_coords),
-			ft_freecoords(character->E_coords),
-			ft_freecoords(character->P_coords), free(character), NULL);
+	if (ft_shape_verif(map) || ft_border_verif(map)
+		|| ft_character_verif(map) || ft_road_error(map, newmap, character))
+		return (ft_freetabtabb(win->y, map), ft_freetabtabb(win->y, newmap)
+		,ft_map_error(character));
 	win->c_count = character->C;
 	newmap = ft_freetabtabb(win->y, newmap);
-	return (ft_freecoords(character->C_coords),
-		ft_freecoords(character->E_coords), ft_freecoords(character->P_coords),
-		free(character), map);
+	return (ft_map_error(character) ,map);
 }
