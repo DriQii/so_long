@@ -117,6 +117,7 @@ void		ft_char_coords(t_character **character, t_index i, char c);
 void		ft_player_fight_init(t_win *win);
 void		ft_player_init(t_win *win);
 void		ft_ennemies_init(t_win *win);
+void		ft_print_moove(t_win *win);
 char		**ft_realoc_tabtab(char **tab, int size);
 char		**ft_get_map(int fd);
 char		**ft_map_verif(char *file, t_win *win);

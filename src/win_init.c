@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:10:28 by evella            #+#    #+#             */
-/*   Updated: 2024/01/09 20:15:53 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/11 18:13:53 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ void	ft_win_init(t_win *win)
 	win->moove = 0;
 	free(k->next);
 	free(k);
+	ft_print_moove(win);
 }

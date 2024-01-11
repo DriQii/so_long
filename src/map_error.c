@@ -6,25 +6,12 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:58:17 by evella            #+#    #+#             */
-/*   Updated: 2024/01/10 22:24:21 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/11 18:21:11 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "../include/so_long.h"
-
-void	ft_new_map(char **map, char **newmap)
-{
-	t_index	i;
-
-	i.i = 0;
-	i.l = ft_strlen(map[0]);
-	while (map[i.i])
-	{
-		ft_memset(newmap[i.i], '0', i.l - 1);
-		i.i++;
-	}
-}
 
 static int	ft_border_verif(char **map)
 {

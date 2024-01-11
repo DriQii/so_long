@@ -6,12 +6,25 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 20:12:08 by evella            #+#    #+#             */
-/*   Updated: 2024/01/09 20:12:29 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/11 18:21:19 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "../include/so_long.h"
+
+void	ft_new_map(char **map, char **newmap)
+{
+	t_index	i;
+
+	i.i = 0;
+	i.l = ft_strlen(map[0]);
+	while (map[i.i])
+	{
+		ft_memset(newmap[i.i], '0', i.l - 1);
+		i.i++;
+	}
+}
 
 t_coords	*ft_newlstcoords(int x, int y, t_coords *coords)
 {
