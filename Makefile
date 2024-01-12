@@ -43,12 +43,16 @@ src/%.o : src/%.c
 	$(CC) $(CFLAGS) -I include -I $(MLXDIR) -c $< -o $@
 
 $(NAME) : $(OBJ)
+	make -C libft
+	cp libft/libft.a lib
 	$(CC) $(CFLAGS) $(OBJ) -I include -L lib -l ft -I $(MLXDIR) -L $(MLXDIR) -l $(LIB) $(OSFLAG) -o $(NAME)
 
 clean :
+	make clean -C libft
 	rm -rf $(OBJDIR)$(OBJ)
 
 fclean : clean
+	make fclean -C libft
 	rm -rf $(NAME)
 
 re : fclean all
