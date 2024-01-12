@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:42:03 by evella            #+#    #+#             */
-/*   Updated: 2023/12/20 00:25:47 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:12:29 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,41 @@ int	ft_print_character(t_win *win, void *img, char c)
 	return (0);
 }
 
+static int	ft_check_format(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	if (str[i - 1] != 'r' || str[i - 2] != 'e'
+	|| str[i - 3] != 'b' || str[i - 4] != '.')
+	{
+		ft_printf("the map file must be in .ber format\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_hook_close_game(t_win *win)
+{
+	mlx_destroy_window(win->mlx, win->mlx_win);
+	ft_destroy_anim(win, win->player.front);
+	ft_destroy_anim(win, win->player.back);
+	ft_destroy_anim(win, win->player.right);
+	ft_destroy_anim(win, win->player.left);
+	ft_freetabtabb(win->y, win->map);
+	free(win->mlx);
+	exit(0);
+	return(0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_win	win;
 
+	if (ft_check_format(argv[1]))
+		return(1);
 	if (argc != 2)
 		return (ft_printf("Error\nPlease give only one map as argument\n"), 1);
 	win.map = ft_map_verif(argv[1], &win);
@@ -50,6 +81,7 @@ int	main(int argc, char **argv)
 	mlx_key_hook(win.mlx_win, ft_hook, &win);
 	if (mlx_loop_hook(win.mlx, ft_loop_hook, &win) == 1)
 		return (0);
+	mlx_hook(win.mlx_win, 17, 0, ft_hook_close_game, &win);
 	mlx_loop(win.mlx);
 	return (0);
 }

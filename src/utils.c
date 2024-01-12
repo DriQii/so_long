@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 12:19:23 by evella            #+#    #+#             */
-/*   Updated: 2024/01/08 15:01:23 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:08:36 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	ft_destroy_anim(t_win *win, t_anim anim)
 	mlx_destroy_image(win->mlx, anim.fight3.img);
 }
 
-void	ft_close_game(t_win *win, char *str)
+int	ft_close_game(t_win *win, char *str)
 {
-	ft_printf("\n\n%s\n\n", str);
+	ft_printf("\n%s\n", str);
 	mlx_destroy_window(win->mlx, win->mlx_win);
 	ft_destroy_anim(win, win->player.front);
 	ft_destroy_anim(win, win->player.back);
@@ -74,6 +74,7 @@ void	ft_close_game(t_win *win, char *str)
 	ft_freetabtabb(win->y, win->map);
 	free(win->mlx);
 	exit(0);
+	return(0);
 }
 
 void	ft_freecoords(t_coords *coords)

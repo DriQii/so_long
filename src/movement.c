@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:53:06 by evella            #+#    #+#             */
-/*   Updated: 2024/01/11 18:39:35 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:11:43 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_print_moove(t_win *win)
 	mlx_put_image_to_window(win->mlx, win->mlx_win, win->obstacle.img, 128,
 		0);
 	mlx_string_put(win->mlx, win->mlx_win, 10, 10, 0x00000000, strmoove);
+	ft_printf("%s\n", strmoove);
 	free(strmoove);
 	free(str);
 	free(tmp);

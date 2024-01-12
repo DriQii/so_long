@@ -2,7 +2,7 @@ NAME = exe
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -g
 
 SRC = src/so_long.c \
 	src/get_map.c	\
