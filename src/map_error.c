@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:58:17 by evella            #+#    #+#             */
-/*   Updated: 2024/01/11 18:21:11 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/15 20:27:38 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ static int	ft_shape_verif(char **map)
 	while (map[i.i])
 	{
 		i.k = ft_strlen(map[i.i]);
-		if (i.k != i.l)
+		if ((i.k != i.l && map[i.i + 1])
+		|| (i.k != i.l && map[i.i][i.k - 1] == '\n')
+		|| (i.k != i.l -1 && map[i.i][i.k - 1] != '\n'))
 			return (ft_printf("Error\nThe map must be rectangular\n"), 1);
 		i.i++;
 	}

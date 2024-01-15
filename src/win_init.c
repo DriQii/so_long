@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:10:28 by evella            #+#    #+#             */
-/*   Updated: 2024/01/11 18:13:53 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/12 18:33:38 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ t_data	ft_get_image_transparance(void *mlx, t_data bg, char *path)
 	{
 		while (++j <= (c.line_length / 4))
 		{
-			if ((c.addr[(i * c.line_length) \
-				+ (j * (c.bits_per_pixel / 8))] == 0) \
+			if ((c.addr[(i * c.line_length) + (j * (c.bits_per_pixel / 8))] == 0) \
 				&& (c.addr[(i * c.line_length) \
 				+ (j * (c.bits_per_pixel / 8)) + 1] == 0) \
 				&& (c.addr[(i * c.line_length) \

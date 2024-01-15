@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:42:03 by evella            #+#    #+#             */
-/*   Updated: 2024/01/12 11:12:29 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/15 20:20:36 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ int	main(int argc, char **argv)
 {
 	t_win	win;
 
-	if (ft_check_format(argv[1]))
-		return(1);
+
 	if (argc != 2)
 		return (ft_printf("Error\nPlease give only one map as argument\n"), 1);
+	if (ft_check_format(argv[1]))
+		return(1);
 	win.map = ft_map_verif(argv[1], &win);
 	if (!win.map)
 		return (1);
