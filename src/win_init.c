@@ -73,9 +73,6 @@ void	ft_win_init(t_win *win)
 {
 	t_coords	*k;
 
-	win->mlx = mlx_init();
-	win->mlx_win = mlx_new_window(win->mlx, win->x * 64, win->y * 64,
-			"so long");
 	ft_img_init(win);
 	ft_print_character(win, win->bg.img, '0');
 	ft_print_character(win, win->obstacle.img, '1');

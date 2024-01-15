@@ -78,6 +78,9 @@ int	main(int argc, char **argv)
 	win.map = ft_map_verif(argv[1], &win);
 	if (!win.map)
 		return (1);
+	win.mlx = mlx_init();
+	win.mlx_win = mlx_new_window(win.mlx, win.x * 64, win.y * 64,
+			"so long");
 	ft_win_init(&win);
 	mlx_key_hook(win.mlx_win, ft_hook, &win);
 	if (mlx_loop_hook(win.mlx, ft_loop_hook, &win) == 1)

@@ -63,6 +63,18 @@ void	ft_destroy_anim(t_win *win, t_anim anim)
 	mlx_destroy_image(win->mlx, anim.fight3.img);
 }
 
+void	ft_destroy_ennemies_anim(t_win *win)
+{
+	mlx_destroy_image(win->mlx, win->ennemies.frame1.img);
+	mlx_destroy_image(win->mlx, win->ennemies.frame2.img);
+	mlx_destroy_image(win->mlx, win->ennemies.frame3.img);
+	mlx_destroy_image(win->mlx, win->ennemies.frame4.img);
+	mlx_destroy_image(win->mlx, win->ennemies.frame5.img);
+	mlx_destroy_image(win->mlx, win->ennemies.dead.img);
+	mlx_destroy_image(win->mlx, win->ennemies.dead2.img);
+	mlx_destroy_image(win->mlx, win->ennemies.dead3.img);
+}
+
 int	ft_close_game(t_win *win, char *str)
 {
 	ft_printf("\n%s\n", str);
@@ -71,7 +83,13 @@ int	ft_close_game(t_win *win, char *str)
 	ft_destroy_anim(win, win->player.back);
 	ft_destroy_anim(win, win->player.right);
 	ft_destroy_anim(win, win->player.left);
+	ft_destroy_ennemies_anim(win);
+	mlx_destroy_image(win->mlx, win->bg.img);
+	mlx_destroy_image(win->mlx, win->escape.img);
+	mlx_destroy_image(win->mlx, win->obstacle.img);
+	mlx_destroy_image(win->mlx, win->collectible.img);
 	ft_freetabtabb(win->y, win->map);
+	mlx_destroy_display(win->mlx);
 	free(win->mlx);
 	exit(0);
 	return(0);
