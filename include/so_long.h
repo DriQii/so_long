@@ -2,7 +2,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include "../include/mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include <stdio.h>
 
 typedef struct	s_data {
@@ -118,6 +118,7 @@ void		ft_player_init(t_win *win);
 void		ft_ennemies_init(t_win *win);
 void		ft_print_moove(t_win *win);
 void		ft_destroy_anim(t_win *win, t_anim anim);
+void		ft_destroy_ennemies(t_win *win);
 char		**ft_realoc_tabtab(char **tab, int size);
 char		**ft_get_map(int fd);
 char		**ft_map_verif(char *file, t_win *win);

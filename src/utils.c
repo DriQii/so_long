@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 12:19:23 by evella            #+#    #+#             */
-/*   Updated: 2024/01/12 11:08:36 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:22:59 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_tabtablen(char **tab, t_win *win)
 		i++;
 	}
 	win->y = i;
-	win->x = j - 1;
+	win->x = j;
 }
 
 void	ft_destroy_anim(t_win *win, t_anim anim)
@@ -63,7 +63,7 @@ void	ft_destroy_anim(t_win *win, t_anim anim)
 	mlx_destroy_image(win->mlx, anim.fight3.img);
 }
 
-void	ft_destroy_ennemies_anim(t_win *win)
+void	ft_destroy_ennemies(t_win *win)
 {
 	mlx_destroy_image(win->mlx, win->ennemies.frame1.img);
 	mlx_destroy_image(win->mlx, win->ennemies.frame2.img);
@@ -83,26 +83,14 @@ int	ft_close_game(t_win *win, char *str)
 	ft_destroy_anim(win, win->player.back);
 	ft_destroy_anim(win, win->player.right);
 	ft_destroy_anim(win, win->player.left);
-	ft_destroy_ennemies_anim(win);
+	ft_destroy_ennemies(win);
 	mlx_destroy_image(win->mlx, win->bg.img);
-	mlx_destroy_image(win->mlx, win->escape.img);
 	mlx_destroy_image(win->mlx, win->obstacle.img);
 	mlx_destroy_image(win->mlx, win->collectible.img);
+	mlx_destroy_image(win->mlx, win->escape.img);
 	ft_freetabtabb(win->y, win->map);
 	mlx_destroy_display(win->mlx);
 	free(win->mlx);
 	exit(0);
-	return(0);
-}
-
-void	ft_freecoords(t_coords *coords)
-{
-	t_coords	*tmp;
-
-	while (coords)
-	{
-		tmp = coords;
-		coords = coords->next;
-		free(tmp);
-	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 18:21:34 by evella            #+#    #+#             */
-/*   Updated: 2024/01/10 21:31:46 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 09:53:28 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void	ft_test(t_win *win, t_data frame, int state)
 {
 	ft_print_character(win, win->bg.img, 'N');
 	ft_print_character(win, frame.img, 'N');
-
 	if (state == 1)
 		win->ennemies.state = 1;
 	else

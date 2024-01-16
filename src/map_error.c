@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:58:17 by evella            #+#    #+#             */
-/*   Updated: 2024/01/15 20:27:38 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:22:25 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_border_verif(char **map)
 
 	i.i = 0;
 	i.j = 0;
-	i.l = ft_strlen(map[0]) - 1;
+	i.l = ft_strlen(map[0]);
 	while (map[i.i])
 	{
 		while (map[i.i][i.j] && map[i.i][i.j] != '\n')
@@ -77,14 +77,13 @@ static int	ft_shape_verif(char **map)
 	while (map[i.i])
 	{
 		i.k = ft_strlen(map[i.i]);
-		if ((i.k != i.l && map[i.i + 1])
-		|| (i.k != i.l && map[i.i][i.k - 1] == '\n')
-		|| (i.k != i.l -1 && map[i.i][i.k - 1] != '\n'))
+		if (i.k != i.l)
 			return (ft_printf("Error\nThe map must be rectangular\n"), 1);
 		i.i++;
 	}
 	return (0);
 }
+
 static void	*ft_map_error(t_character *character)
 {
 	ft_freecoords(character->C_coords);
@@ -117,8 +116,8 @@ char	**ft_map_verif(char *file, t_win *win)
 	if (ft_shape_verif(map) || ft_border_verif(map)
 		|| ft_character_verif(map) || ft_road_error(map, newmap, character))
 		return (ft_freetabtabb(win->y, map), ft_freetabtabb(win->y, newmap)
-		,ft_map_error(character));
+			, ft_map_error(character));
 	win->c_count = character->C;
 	newmap = ft_freetabtabb(win->y, newmap);
-	return (ft_map_error(character) ,map);
+	return (ft_map_error(character), map);
 }

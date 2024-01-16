@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:42:22 by evella            #+#    #+#             */
-/*   Updated: 2024/01/08 15:01:49 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:20:28 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ char	**ft_get_map(int fd)
 		return (map);
 	while (tmp)
 	{
-		map[i.i] = tmp;
+		map[i.i] = ft_strtrim(tmp, "\n");
+		free(tmp);
 		i.i++;
 		map = ft_realoc_tabtab(map, i.i);
 		tmp = get_next_line(fd);

@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:53:06 by evella            #+#    #+#             */
-/*   Updated: 2024/01/12 11:11:43 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 09:54:56 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_print_moove(t_win *win)
 
 t_index	ft_test(t_win *win)
 {
-	t_index i;
+	t_index	i;
 
 	i.y = 0;
 	i.x = 0;

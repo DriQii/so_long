@@ -6,12 +6,24 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:42:03 by evella            #+#    #+#             */
-/*   Updated: 2024/01/15 20:20:36 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:43:37 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "../include/so_long.h"
+
+void	ft_freecoords(t_coords *coords)
+{
+	t_coords	*tmp;
+
+	while (coords)
+	{
+		tmp = coords;
+		coords = coords->next;
+		free(tmp);
+	}
+}
 
 int	ft_print_character(t_win *win, void *img, char c)
 {
@@ -42,10 +54,10 @@ static int	ft_check_format(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	if (str[i - 1] != 'r' || str[i - 2] != 'e'
-	|| str[i - 3] != 'b' || str[i - 4] != '.')
+		|| str[i - 3] != 'b' || str[i - 4] != '.')
 	{
 		ft_printf("the map file must be in .ber format\n");
 		return (1);
@@ -60,27 +72,29 @@ int	ft_hook_close_game(t_win *win)
 	ft_destroy_anim(win, win->player.back);
 	ft_destroy_anim(win, win->player.right);
 	ft_destroy_anim(win, win->player.left);
+	ft_destroy_ennemies(win);
+	mlx_destroy_image(win->mlx, win->bg.img);
+	mlx_destroy_image(win->mlx, win->obstacle.img);
+	mlx_destroy_image(win->mlx, win->collectible.img);
+	mlx_destroy_image(win->mlx, win->escape.img);
 	ft_freetabtabb(win->y, win->map);
+	mlx_destroy_display(win->mlx);
 	free(win->mlx);
 	exit(0);
-	return(0);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_win	win;
 
-
-	if (argc != 2)
-		return (ft_printf("Error\nPlease give only one map as argument\n"), 1);
 	if (ft_check_format(argv[1]))
-		return(1);
+		return (1);
+	if (argc != 2)
+		return (perror("Error\nPlease give only one map as argument\n"), 1);
 	win.map = ft_map_verif(argv[1], &win);
 	if (!win.map)
 		return (1);
-	win.mlx = mlx_init();
-	win.mlx_win = mlx_new_window(win.mlx, win.x * 64, win.y * 64,
-			"so long");
 	ft_win_init(&win);
 	mlx_key_hook(win.mlx_win, ft_hook, &win);
 	if (mlx_loop_hook(win.mlx, ft_loop_hook, &win) == 1)
