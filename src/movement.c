@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 19:53:06 by evella            #+#    #+#             */
-/*   Updated: 2024/01/16 09:54:56 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:09:50 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_print_moove(t_win *win)
 	mlx_put_image_to_window(win->mlx, win->mlx_win, win->obstacle.img, 128,
 		0);
 	mlx_string_put(win->mlx, win->mlx_win, 10, 10, 0x00000000, strmoove);
-	ft_printf("%s\n", strmoove);
 	free(strmoove);
 	free(str);
 	free(tmp);
@@ -86,21 +85,17 @@ int	ft_check_moove(t_win *win)
 
 int	ft_hook(int keycode, t_win *win)
 {
-	if (keycode == 53)
+	if (keycode == 65307)
 		ft_close_game(win, "");
-	else if (keycode == 49 || keycode == 32)
+	else if (keycode == 32)
 		return (ft_put_fight_anim(win), 1);
-	else if (keycode == 13 || keycode == 126 || keycode == 119
-		|| keycode == 65362)
+	else if (keycode == 119 || keycode == 65362)
 		win->keycode = 13;
-	else if (keycode == 0 || keycode == 123 || keycode == 97
-		|| keycode == 65361)
+	else if (keycode == 97 || keycode == 65361)
 		win->keycode = 0;
-	else if (keycode == 1 || keycode == 125 || keycode == 115
-		|| keycode == 65364)
+	else if (keycode == 115 || keycode == 65364)
 		win->keycode = 1;
-	else if (keycode == 2 || keycode == 124 || keycode == 100
-		|| keycode == 65363)
+	else if (keycode == 100 || keycode == 65363)
 		win->keycode = 2;
 	if (win->keycode == 13 || win->keycode == 0 || win->keycode == 1
 		|| win->keycode == 2)

@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:42:03 by evella            #+#    #+#             */
-/*   Updated: 2024/01/16 10:43:37 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:04:45 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ft_check_format(char *str)
 	if (str[i - 1] != 'r' || str[i - 2] != 'e'
 		|| str[i - 3] != 'b' || str[i - 4] != '.')
 	{
-		ft_printf("the map file must be in .ber format\n");
+		perror("Error\nthe map file must be in .ber format\n");
 		return (1);
 	}
 	return (0);

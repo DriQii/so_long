@@ -107,6 +107,7 @@ void		ft_print_tabtab(char **tab);
 void		ft_print_coords(t_coords *lst);
 void		ft_tabtablen(char **tab, t_win *win);
 void		ft_win_init(t_win *win);
+void		*ft_map_error(t_character *character);
 void		ft_put_walkanim(t_win *win);
 void		ft_put_fight_anim(t_win *win);
 void		ft_put_deadanim(t_win *win);

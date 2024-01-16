@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 12:19:23 by evella            #+#    #+#             */
-/*   Updated: 2024/01/16 10:22:59 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:12:26 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_destroy_ennemies(t_win *win)
 
 int	ft_close_game(t_win *win, char *str)
 {
-	ft_printf("\n%s\n", str);
+	ft_printf("\n%s\n\n", str);
 	mlx_destroy_window(win->mlx, win->mlx_win);
 	ft_destroy_anim(win, win->player.front);
 	ft_destroy_anim(win, win->player.back);

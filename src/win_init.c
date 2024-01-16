@@ -6,12 +6,21 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:10:28 by evella            #+#    #+#             */
-/*   Updated: 2024/01/11 18:13:53 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 15:59:02 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "../include/so_long.h"
+
+void	*ft_map_error(t_character *character)
+{
+	ft_freecoords(character->C_coords);
+	ft_freecoords(character->E_coords);
+	ft_freecoords(character->P_coords);
+	free(character);
+	return (NULL);
+}
 
 void	ft_swap_px(t_data bg, t_data *c, int i, int j)
 {
