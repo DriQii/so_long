@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:41:57 by evella            #+#    #+#             */
-/*   Updated: 2024/01/16 16:04:15 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:26:45 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	ft_road_error(char **map, char **newmap, t_character *character)
 			c_count++;
 		}
 	}
-	return (perror("Error\n\
-	No way to reach all the collectibles and the exit\n"),
+	return (ft_printf("Error\n \
+No way to reach all the collectibles and the exit\n"),
 		1);
 }

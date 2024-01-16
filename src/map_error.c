@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:58:17 by evella            #+#    #+#             */
-/*   Updated: 2024/01/16 16:06:35 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:26:34 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_border_verif(char **map)
 					|| map[i.i][i.l - 1] != '1') || (!map[i.i + 1]
 					&& map[i.i][i.j] != '1'))
 			{
-				perror("Error\nThe map must be surrounded by obstacles\n");
+				ft_printf("Error\n The map must be surrounded by obstacles\n");
 				return (1);
 			}
 			i.j++;
@@ -63,8 +63,8 @@ static int	ft_character_verif(char **map)
 		i.j = 0;
 	}
 	if (i.c == 0 || i.e != 1 || i.p != 1)
-		return (perror("Error\n \
-		The map must contain a single P a single E and at least one C\n"), 1);
+		return (ft_printf("Error\n \
+The map must contain a single P a single E and at least one C\n"), 1);
 	return (0);
 }
 
@@ -78,7 +78,7 @@ static int	ft_shape_verif(char **map)
 	{
 		i.k = ft_strlen(map[i.i]);
 		if (i.k != i.l)
-			return (perror("Error\nThe map must be rectangular\n"), 1);
+			return (ft_printf("Error\n The map must be rectangular\n"), 1);
 		i.i++;
 	}
 	return (0);
@@ -97,8 +97,8 @@ int	ft_char_verif(char **map)
 			if (map[i.i][i.j] != 'C' && map[i.i][i.j] != 'E'
 			&& map[i.i][i.j] != 'P' && map[i.i][i.j] != '0'
 			&& map[i.i][i.j] != '1' && map[i.i][i.j] != 'N')
-				return (perror("Error\n \
-		The map must contain a single P a single E and at least one C\n"), 1);
+				return (ft_printf("Error\n \
+The map must contain a single P a single E and at least one C\n"), 1);
 			i.j++;
 		}
 		i.j = 0;
@@ -117,7 +117,7 @@ char	**ft_map_verif(char *file, t_win *win)
 	fd = open(file, O_RDONLY);
 	map = ft_get_map(fd);
 	if (!map[0])
-		return (free(map), perror("Error\nEmpty map\n"), NULL);
+		return (free(map), ft_printf("Error\n Empty map\n"), NULL);
 	close(fd);
 	ft_tabtablen(map, win);
 	fd = open(file, O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:42:03 by evella            #+#    #+#             */
-/*   Updated: 2024/01/16 16:04:45 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:26:57 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ft_check_format(char *str)
 	if (str[i - 1] != 'r' || str[i - 2] != 'e'
 		|| str[i - 3] != 'b' || str[i - 4] != '.')
 	{
-		perror("Error\nthe map file must be in .ber format\n");
+		ft_printf("Error\n the map file must be in .ber format\n");
 		return (1);
 	}
 	return (0);
@@ -88,10 +88,10 @@ int	main(int argc, char **argv)
 {
 	t_win	win;
 
+	if (argc != 2)
+		return (ft_printf("Error\n Please give only one map as argument\n"), 1);
 	if (ft_check_format(argv[1]))
 		return (1);
-	if (argc != 2)
-		return (perror("Error\nPlease give only one map as argument\n"), 1);
 	win.map = ft_map_verif(argv[1], &win);
 	if (!win.map)
 		return (1);
